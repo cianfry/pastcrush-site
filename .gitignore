@@ -1,0 +1,57 @@
+# ==========================
+# 📦 Node & dependencies
+# ==========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json.lck
+
+# ==========================
+# 🏗️ Build output
+# ==========================
+dist/
+build/
+.cache/
+.tmp/
+.vite/
+
+# ==========================
+# 🧠 Environment / local config
+# ==========================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ==========================
+# 🧰 IDE / OS Files
+# ==========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# ==========================
+# 🚀 Optional local data
+# ==========================
+*.log
+*.tgz
+*.zip
+*.tar
+*.bak
+
+# ==========================
+# ⚙️ Custom project ignores
+# ==========================
+# Local AI-generated JSONs or cached results (if temporary)
+catawiki_auctions_ai.json
+
+# Ignore Playwright browser cache if you ever run it here
+.playwright/

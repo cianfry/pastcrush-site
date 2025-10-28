@@ -45,7 +45,7 @@ export default function ProductCard({ product, index = 0 }) {
             </div>
           )}
 
-          {!imageError and (
+          {!imageError && (
             <img
               src={product.image_url}
               alt={alt}

@@ -5,7 +5,7 @@ import HeroSection from "../components/showcase/HeroSection";
 import WhySection from "../components/showcase/WhySection";
 import LoadingState from "../components/showcase/LoadingState";
 import CategoryFilter from "../components/showcase/CategoryFilter";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Alert, AlertDescription } from "../components/ui/alert";
 
 const FEED_URL =
   window.__PASTCRUSH_API__ ||

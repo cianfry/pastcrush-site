@@ -9,10 +9,13 @@ import path from "path";
 export default defineConfig({
   plugins: [react()],
   base: '/', // ✅ important for custom domains like pastcrush.shop
+    build: { outDir: 'dist' },
+    server: {
+    historyApiFallback: true, // 👈 handles routing correctly
+   },
     resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     }
    }
 });
-

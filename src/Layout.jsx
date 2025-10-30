@@ -18,8 +18,8 @@ export default function Layout({ children, currentPageName }) {
         * { transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out; }
       `}</style>
 
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100">
-        <nav className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between" aria-label="Main navigation">
+      <header>
+        <nav className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between fixed top-0 left-0 right-0 z-50 bg-white/98 backdrop-blur-sm border-b border-gray-100" aria-label="Main navigation">
           <Link to={createPageUrl("Home")} className="flex items-center gap-2 group focus:outline-none focus:ring-2 focus:ring-[#C9A959] rounded-md">
             <Heart className="w-5 h-5 text-[#C9A959] group-hover:fill-[#C9A959] transition-all duration-300" aria-hidden="true" />
             <div>
@@ -29,8 +29,8 @@ export default function Layout({ children, currentPageName }) {
           </Link>
 
           <div className="flex items-center gap-10">
-            <Link to={createPageUrl("Home")} className={`text-sm font-medium tracking-wide transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#C9A959] rounded-md ${currentPageName === "Home" ? "text-[#111]" : "text-gray-400 hover:text-[#111]"}`}>Collection</Link>
-            <Link to={createPageUrl("About")} className={`text-sm font-medium tracking-wide transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#C9A959] rounded-md ${currentPageName === "About" ? "text-[#111]" : "text-gray-400 hover:text-[#111]"}`}>Our Story</Link>
+            <Link to={createPageUrl("Home")} className={`text-sm font-medium tracking-wide transition-all duration-300 rounded-md ${currentPageName === "Home" ? "text-[#111]" : "text-gray-400 hover:text-[#111]"}`}>Collection</Link>
+            <Link to={createPageUrl("About")} className={`text-sm font-medium tracking-wide transition-all duration-300 rounded-md ${currentPageName === "About" ? "text-[#111]" : "text-gray-400 hover:text-[#111]"}`}>Our Story</Link>
           </div>
         </nav>
       </header>

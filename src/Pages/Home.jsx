@@ -91,7 +91,7 @@ export default function Home() {
 
   const updateProducts = React.useCallback(async () => {
     setIsRefreshing(true);
-    setStatusMessage("✨ Searching through centuries...");
+   // setStatusMessage("✨ Searching through centuries...");
 
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort("timeout"), 60000);
@@ -104,7 +104,7 @@ export default function Home() {
       setStatusMessage(null);
     } catch (err) {
       console.error("Feed fetch failed:", err);
-      setStatusMessage("💔 Something went wrong. We'll try again soon.");
+    //  setStatusMessage("💔 Something went wrong. We'll try again soon.");
       setTimeout(() => setStatusMessage(null), 5000);
       try {
         const cached = JSON.parse(localStorage.getItem(LS_KEY_ITEMS) || "[]");

@@ -8,3 +8,58 @@ html, body {
   background-color: white;
   color: #111;
 }
+
+.backdrop-blur-sm {
+  --tw-backdrop-blur: blur(4px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur)
+    var(--tw-backdrop-brightness)
+    var(--tw-backdrop-contrast)
+    var(--tw-backdrop-grayscale)
+    var(--tw-backdrop-hue-rotate)
+    var(--tw-backdrop-invert)
+    var(--tw-backdrop-opacity)
+    var(--tw-backdrop-saturate)
+    var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur)
+    var(--tw-backdrop-brightness)
+    var(--tw-backdrop-contrast)
+    var(--tw-backdrop-grayscale)
+    var(--tw-backdrop-hue-rotate)
+    var(--tw-backdrop-invert)
+    var(--tw-backdrop-opacity)
+    var(--tw-backdrop-saturate)
+    var(--tw-backdrop-sepia);
+}
+
+.border-gray-100 {
+    --tw-border-opacity: 1;
+    border-color: rgb(243 244 246 / var(--tw-border-opacity, 1));
+}
+
+.border-b {
+    border-bottom-width: 1px;
+}
+
+.z-50 {
+    z-index: 50;
+}
+.top-0 {
+    top: 0px;
+}
+
+.right-0 {
+    right: 0px;
+}
+
+.left-0 {
+    left: 0px;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.bg-white {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}

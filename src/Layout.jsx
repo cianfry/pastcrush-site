@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { Heart } from "lucide-react";
+import { Gem, Heart } from "lucide-react";
 
 export default function Layout({ children, currentPageName }) {
   return (
@@ -21,7 +21,7 @@ export default function Layout({ children, currentPageName }) {
       <header>
         <nav className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between fixed top-0 left-0 right-0 z-50 bg-white/98 backdrop-blur-sm border-b border-gray-100" aria-label="Main navigation">
           <Link to={createPageUrl("Home")} className="flex items-center gap-2 group focus:outline-none focus:ring-2 focus:ring-[#C9A959] rounded-md">
-            <Heart className="w-5 h-5 text-[#C9A959] group-hover:fill-[#C9A959] transition-all duration-300" aria-hidden="true" />
+            <Gem className="w-5 h-5 text-[#C9A959] group-hover:fill-[#C9A959] transition-all duration-300" aria-hidden="true" />
             <div>
               <span className="text-xl font-serif text-[#111] tracking-tight block leading-none">Past Crush</span>
               <span className="text-[10px] text-gray-500 tracking-wider uppercase">Ancient Jewelry for Modern Hearts</span>

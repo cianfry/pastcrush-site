@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Sparkles } from 'lucide-react';
+import { Amphora, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function HeroSection({ onScrollToCollection }) {
@@ -26,7 +26,7 @@ export default function HeroSection({ onScrollToCollection }) {
             aria-hidden="true"
           >
             <div className="relative">
-              <Heart className="w-16 h-16 text-[#C9A959] fill-[#C9A959]/20" />
+              <Amphora className="w-16 h-16 text-[#C9A959] fill-[#C9A959]/20" />
               <Sparkles className="w-6 h-6 text-[#C9A959] absolute -top-1 -right-1" />
             </div>
           </motion.div>

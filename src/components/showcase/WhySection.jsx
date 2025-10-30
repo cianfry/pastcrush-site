@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Clock, Sparkles } from 'lucide-react';
+import { Anvil, Clock, Sparkles } from 'lucide-react';
 
 export default function WhySection() {
   return (
@@ -32,7 +32,7 @@ export default function WhySection() {
               transition={{ delay: 0.1, duration: 0.5 }}
               className="text-center p-8 rounded-3xl bg-white border border-gray-100 hover:shadow-lg transition-shadow duration-300"
             >
-              <Heart className="w-10 h-10 text-[#C9A959] mx-auto mb-4 fill-[#C9A959]/20" aria-hidden="true" />
+              <Anvil className="w-10 h-10 text-[#C9A959] mx-auto mb-4 fill-[#C9A959]/20" aria-hidden="true" />
               <h3 className="text-lg font-serif text-[#111] mb-2">More Than Metal</h3>
               <p className="text-sm text-gray-600 leading-relaxed">
                 Each piece carries stories that modern jewelry can only dream of.

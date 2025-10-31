@@ -1,13 +1,13 @@
 import React from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Heart } from 'lucide-react';
+import { Amphora } from 'lucide-react';
 
 export default function LoadingState() {
   return (
     <div className="min-h-screen bg-white" role="status" aria-live="polite" aria-busy="true">
       <section className="bg-white py-32 md:py-40">
         <div className="max-w-6xl mx-auto px-6 text-center">
-          <Heart className="w-12 h-12 text-[#C9A959] fill-[#C9A959]/20 mx-auto mb-8 animate-pulse" aria-hidden="true" />
+          <Amphora className="w-12 h-12 text-[#C9A959] fill-[#C9A959]/20 mx-auto mb-8 animate-pulse" aria-hidden="true" />
           <Skeleton className="h-16 w-3/4 mx-auto mb-6 bg-gray-100" />
           <Skeleton className="h-8 w-full max-w-3xl mx-auto mb-4 bg-gray-100" />
           <Skeleton className="h-8 w-5/6 max-w-3xl mx-auto mb-12 bg-gray-100" />

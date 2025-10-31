@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Heart, Sparkles, Clock, Users } from "lucide-react";
+import { SwatchBook, Sparkles, Clock, Users } from "lucide-react";
 
 export default function About() {
   React.useEffect(() => {
@@ -27,7 +27,7 @@ export default function About() {
     <div className="min-h-screen bg-white">
       <section className="max-w-4xl mx-auto px-6 py-24 md:py-32">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-center mb-20">
-          <Heart className="w-12 h-12 text-[#C9A959] fill-[#C9A959]/20 mx-auto mb-6" aria-hidden="true" />
+          <SwatchBook className="w-12 h-12 text-[#C9A959] fill-[#C9A959]/20 mx-auto mb-6" aria-hidden="true" />
           <h1 className="text-5xl md:text-6xl font-serif text-[#111] mb-6">Our Story</h1>
           <div className="w-24 h-1 bg-[#C9A959] mx-auto rounded-full" />
         </motion.div>
@@ -47,7 +47,7 @@ export default function About() {
 
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.8 }} className="grid md:grid-cols-3 gap-8 mt-32" aria-label="Our values">
           <div className="text-center p-8 rounded-3xl bg-gradient-to-b from-gray-50 to-white border border-gray-100">
-            <Heart className="w-10 h-10 text-[#C9A959] fill-[#C9A959]/20 mx-auto mb-4" aria-hidden="true" />
+            <Sparkles className="w-10 h-10 text-[#C9A959] fill-[#C9A959]/20 mx-auto mb-4" aria-hidden="true" />
             <h3 className="text-lg font-serif text-[#111] mb-2">Emotional Connection</h3>
             <p className="text-sm text-gray-600 leading-relaxed">Every piece carries stories that modern jewelry can only dream of telling.</p>
           </div>

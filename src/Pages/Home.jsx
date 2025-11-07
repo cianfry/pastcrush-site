@@ -175,13 +175,18 @@ export default function Home() {
           className="h-[340px] bg-cover bg-center transition-all duration-700 group-hover:scale-110"
           style={{ backgroundImage: "url('/ring1.PNG')" }}
         ></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A2E]/80 via-[#1A1A2E]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[32px]" />
-        <div className="absolute bottom-6 left-6 text-left text-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-3 group-hover:translate-y-0">
-          <h2 className="text-3xl font-black mb-2">More Than Metal</h2>
-          <p className="text-white/80 text-base font-medium leading-relaxed">
-            Each piece carries stories that modern jewelry can only dream of.
-          </p>
+
+        {/* keep overlay always visible, but soften opacity */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A2E]/70 via-[#1A1A2E]/20 to-transparent transition-opacity duration-500 rounded-[32px]" />
+
+        {/* text always visible */}
+        <div className="absolute bottom-6 left-6 text-left text-white transition-all duration-500">
+        <h2 className="text-3xl font-black mb-2">More Than Metal</h2>
+        <p className="text-white/80 text-base font-medium leading-relaxed min-h-[48px]">
+        Each piece carries stories that modern jewelry can only dream of.
+        </p>
         </div>
+
       </button>
     </motion.div>
 
@@ -200,8 +205,10 @@ export default function Home() {
           className="h-[340px] bg-cover bg-center transition-all duration-700 group-hover:scale-110"
           style={{ backgroundImage: "url('/pendant2.PNG')" }}
         ></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A2E]/80 via-[#1A1A2E]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[32px]" />
-        <div className="absolute bottom-6 left-6 text-left text-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-3 group-hover:translate-y-0">
+
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A2E]/70 via-[#1A1A2E]/20 to-transparent transition-opacity duration-500 rounded-[32px]" />
+
+        <div className="absolute bottom-6 left-6 text-left text-white transition-all duration-500">
           <h2 className="text-3xl font-black mb-2">Time-Tested Style</h2>
           <p className="text-white/80 text-base font-medium leading-relaxed">
             If it survived 2000 years, it's probably going to outlast fast fashion.
@@ -225,8 +232,10 @@ export default function Home() {
           className="h-[340px] bg-cover bg-center transition-all duration-700 group-hover:scale-110"
           style={{ backgroundImage: "url('/bracelet3.PNG')" }}
         ></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A2E]/80 via-[#1A1A2E]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[32px]" />
-        <div className="absolute bottom-6 left-6 text-left text-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-3 group-hover:translate-y-0">
+
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A2E]/70 via-[#1A1A2E]/20 to-transparent transition-opacity duration-500 rounded-[32px]" />
+
+        <div className="absolute bottom-6 left-6 text-left text-white transition-all duration-500">
           <h2 className="text-3xl font-black mb-2">Romantic Reuse</h2>
           <p className="text-white/80 text-base font-medium leading-relaxed">
             Give ancient treasures another love story.<br />Sustainability meets sentimentality.
@@ -250,8 +259,10 @@ export default function Home() {
           className="h-[340px] bg-cover bg-center transition-all duration-700 group-hover:scale-110"
           style={{ backgroundImage: "url('/necklace4.PNG')" }}
         ></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A2E]/80 via-[#1A1A2E]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[32px]" />
-        <div className="absolute bottom-6 left-6 text-left text-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-3 group-hover:translate-y-0">
+
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A2E]/70 via-[#1A1A2E]/20 to-transparent transition-opacity duration-500 rounded-[32px]" />
+
+        <div className="absolute bottom-6 left-6 text-left text-white transition-all duration-500">
           <h2 className="text-3xl font-black mb-2">For Romantics, Not Historians</h2>
           <p className="text-white/80 text-base font-medium leading-relaxed">
             You don’t need a PhD to wear history — just a crush on timeless things.
@@ -262,6 +273,7 @@ export default function Home() {
 
   </div>
 </section>
+
 
 
 

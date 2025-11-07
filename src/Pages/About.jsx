@@ -138,8 +138,7 @@ export default function About() {
             </motion.div>
             <h2 className="text-4xl font-black text-[#1A1A2E] mb-8 text-center tracking-tight">Our Mission</h2>
             <p className="text-2xl text-gray-600 leading-relaxed text-center font-medium mb-6">
-              To bridge the gap between ancient craftsmanship and modern style, 
-              making historical treasures part of your everyday story.
+              We champion the idea that meaningful gifts don't have to be brand new. Sometimes the most romantic gesture is choosing something that's already lived, loved, and survived — and giving it permission to do it all again.
             </p>
             <p className="text-base text-gray-500 text-center italic">
               Because the best stories are the ones that span millennia.

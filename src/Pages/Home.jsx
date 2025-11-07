@@ -96,130 +96,174 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Grid Section */}
-      <section className="max-w-6xl mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Our Jewelry */}
-          <motion.div 
-            className="space-y-5"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <button 
-              onClick={scrollToCollection}
-              className="w-full bg-gradient-to-br from-[#E07856] to-[#d06846] rounded-[32px] p-12 flex items-center justify-center min-h-[320px] shadow-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 cursor-pointer group"
-            >
-              <div className="text-9xl group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
-                {/*IMAGE HERE */}
-              </div>
-            </button>
-            <div className="px-2">
-              <h2 className="text-3xl font-black text-[#1A1A2E] mb-3 tracking-tight">More Than Metal</h2>
-              <p className="text-[#1A1A2E]/70 text-lg font-medium leading-relaxed">
-                Each piece carries stories<br />that modern jewelry can only<br />dream of.
-              </p>
-            </div>
-          </motion.div>
+<motion.div
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8 }}
+  className="bg-white rounded-[32px] p-12 md:p-16 shadow-lg hover:shadow-2xl transition-shadow duration-300 max-w-5xl mx-auto my-24"
+>
+  <motion.div
+    initial={{ rotate: -180, scale: 0 }}
+    animate={{ rotate: 0, scale: 1 }}
+    transition={{ delay: 0.2, duration: 0.6, type: 'spring' }}
+    className="inline-block mb-6"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-12 h-12 text-[#E07856] mx-auto"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M9 9l10.5-3m0 0L21 9m-1.5-3l-1.5 12m0 0H6m12 0L9 9m0 0L7.5 21"
+      />
+    </svg>
+  </motion.div>
 
-          {/* What's Old is New */}
-          <motion.div 
-            className="space-y-5"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <button 
-              onClick={scrollToCollection}
-              className="w-full bg-gradient-to-br from-[#4FC3B5] to-[#3ba89c] rounded-[32px] p-12 flex items-center justify-center min-h-[320px] shadow-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 cursor-pointer group"
-            >
-              <div className="flex gap-6 items-center">
-                <div className="text-8xl group-hover:rotate-12 transition-transform duration-300">   {/*IMAGE HERE */}</div>
-                <div className="text-8xl group-hover:-rotate-12 transition-transform duration-300">   {/*IMAGE HERE */}</div>
-              </div>
-            </button>
-            <div className="px-2">
-              <h2 className="text-3xl font-black text-[#1A1A2E] mb-3 tracking-tight">Time-Tested Style</h2>
-              <p className="text-[#1A1A2E]/70 text-lg font-medium leading-relaxed">
-                If it survived 2000 years, it's<br />probably going to outlast fast<br />fashion.
-              </p>
-            </div>
-          </motion.div>
+  <h2 className="text-4xl md:text-5xl font-black text-[#1A1A2E] mb-8 tracking-tight text-center">
+    Why Past Crush Exists
+  </h2>
 
-          {/* About Us */}
-          <motion.div 
-            className="space-y-5"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <Link 
-              to={createPageUrl("About")}
-              className="block w-full bg-gradient-to-br from-[#4FC3B5] to-[#3ba89c] rounded-[32px] p-12 flex items-center justify-center min-h-[320px] shadow-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 cursor-pointer group"
-            >
-              <div className="text-9xl group-hover:scale-110 group-hover:rotate-[-6deg] transition-transform duration-300">   {/*IMAGE HERE */}</div>
-            </Link>
-            <div className="px-2">
-              <h2 className="text-3xl font-black text-[#1A1A2E] mb-3 tracking-tight">Romantic Reuse</h2>
-              <p className="text-[#1A1A2E]/70 text-lg font-medium leading-relaxed">
-                Give ancient treasures<br />another love story.<br />Sustainability meets sentimentality.
-              </p>
-            </div>
-          </motion.div>
+  <div className="space-y-6 text-lg text-gray-600 leading-relaxed font-medium max-w-3xl mx-auto text-center">
+    <p>
+      We love jewelry with <span className="text-[#E07856] font-bold">baggage</span> — the kind that’s
+      survived centuries of empires, banquets, heartbreaks, and still looks incredible on a Friday night.
+    </p>
 
-          {/* Email Signup */}
-          <motion.div 
-            className="space-y-5"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <div className="bg-gradient-to-br from-[#E07856] to-[#d06846] rounded-[32px] p-10 flex flex-col justify-between min-h-[320px] shadow-lg hover:shadow-2xl transition-all duration-300">
-              <div>  
-               {/* <h2 className="text-3xl font-black text-white mb-2 tracking-tight">Be the First to Know</h2>
-                <p className="text-white/80 text-sm mb-6 italic">When treasures arrive (they take their time)</p>
-                <div className="flex items-center justify-between p-4 bg-white/10 backdrop-blur-sm rounded-2xl mb-6">
-                  <span className="text-white text-lg font-semibold">Email me</span>
-                 <Switch 
-                    checked={emailEnabled}
-                    onCheckedChange={setEmailEnabled}
-                    className="data-[state=checked]:bg-[#4FC3B5] scale-125"
-                  /> 
-                </div>*/}
-              </div>
-              
-              {emailEnabled && (
-                <motion.form 
-                  onSubmit={handleEmailSubmit} 
-                  className="mt-auto"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {/* <Input
-                    type="email"
-                    placeholder="your@email.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full bg-[#4FC3B5] border-none text-white placeholder:text-white/60 rounded-2xl h-16 px-6 text-lg font-medium focus:ring-2 focus:ring-white/30"
-                    required
-                    disabled={isSubmitting}
-                  /> */}
-                  {isSubmitting && (
-                    <p className="text-white/70 text-xs mt-2 text-center italic">Sending carrier pigeon...</p>
-                  )}
-                </motion.form>
-              )}
-            </div>
-           <div className="px-2">
-              <h2 className="text-3xl font-black text-[#1A1A2E] mb-3 tracking-tight">About Us</h2>
-              <p className="text-[#1A1A2E]/70 text-lg font-medium leading-relaxed">
-                Give ancient treasures<br />another love story.<br />Sustainability meets sentimentality.
-              </p>
-            </div>
-          </motion.div>
+    <p>
+      Every artifact we find once belonged to someone’s past. Maybe it sealed a love letter. Maybe it
+      crossed an empire. Now it’s ready for its next chapter — <em>with you.</em>
+    </p>
+
+    <p>
+      Past Crush exists to give ancient treasures a second crush: connecting history’s craftsmanship
+      with today’s hearts and wardrobes.
+    </p>
+
+    <p className="text-[#E07856] font-black text-2xl pt-4">
+      Archaeology, but make it fashion.
+    </p>
+
+    <p className="text-sm text-gray-500 italic pt-2">
+      Because vintage is cute, but ancient? That’s iconic.
+    </p>
+  </div>
+</motion.div>
+
+
+
+{/* Grid Section */}
+<section className="max-w-6xl mx-auto px-6 py-20">
+  <div className="grid md:grid-cols-2 gap-10">
+
+    {/* 1. More Than Metal */}
+    <motion.div
+      className="space-y-5"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.1 }}
+    >
+      <button
+        onClick={scrollToCollection}
+        className="relative group w-full rounded-[32px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.03]"
+      >
+        <div
+          className="h-[340px] bg-cover bg-center transition-all duration-700 group-hover:scale-110"
+          style={{ backgroundImage: "url('/ring1.PNG')" }}
+        ></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A2E]/80 via-[#1A1A2E]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[32px]" />
+        <div className="absolute bottom-6 left-6 text-left text-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-3 group-hover:translate-y-0">
+          <h2 className="text-3xl font-black mb-2">More Than Metal</h2>
+          <p className="text-white/80 text-base font-medium leading-relaxed">
+            Each piece carries stories that modern jewelry can only dream of.
+          </p>
         </div>
-      </section>
+      </button>
+    </motion.div>
+
+    {/* 2. Time-Tested Style */}
+    <motion.div
+      className="space-y-5"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.2 }}
+    >
+      <button
+        onClick={scrollToCollection}
+        className="relative group w-full rounded-[32px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.03]"
+      >
+        <div
+          className="h-[340px] bg-cover bg-center transition-all duration-700 group-hover:scale-110"
+          style={{ backgroundImage: "url('/pendant2.PNG')" }}
+        ></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A2E]/80 via-[#1A1A2E]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[32px]" />
+        <div className="absolute bottom-6 left-6 text-left text-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-3 group-hover:translate-y-0">
+          <h2 className="text-3xl font-black mb-2">Time-Tested Style</h2>
+          <p className="text-white/80 text-base font-medium leading-relaxed">
+            If it survived 2000 years, it's probably going to outlast fast fashion.
+          </p>
+        </div>
+      </button>
+    </motion.div>
+
+    {/* 3. Romantic Reuse */}
+    <motion.div
+      className="space-y-5"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.3 }}
+    >
+      <Link
+        to={createPageUrl("About")}
+        className="relative group block w-full rounded-[32px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.03]"
+      >
+        <div
+          className="h-[340px] bg-cover bg-center transition-all duration-700 group-hover:scale-110"
+          style={{ backgroundImage: "url('/bracelet3.PNG')" }}
+        ></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A2E]/80 via-[#1A1A2E]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[32px]" />
+        <div className="absolute bottom-6 left-6 text-left text-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-3 group-hover:translate-y-0">
+          <h2 className="text-3xl font-black mb-2">Romantic Reuse</h2>
+          <p className="text-white/80 text-base font-medium leading-relaxed">
+            Give ancient treasures another love story.<br />Sustainability meets sentimentality.
+          </p>
+        </div>
+      </Link>
+    </motion.div>
+
+    {/* 4. For Romantics, Not Historians */}
+    <motion.div
+      className="space-y-5"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.4 }}
+    >
+      <button
+        onClick={scrollToCollection}
+        className="relative group w-full rounded-[32px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.03]"
+      >
+        <div
+          className="h-[340px] bg-cover bg-center transition-all duration-700 group-hover:scale-110"
+          style={{ backgroundImage: "url('/necklace4.PNG')" }}
+        ></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A2E]/80 via-[#1A1A2E]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[32px]" />
+        <div className="absolute bottom-6 left-6 text-left text-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-3 group-hover:translate-y-0">
+          <h2 className="text-3xl font-black mb-2">For Romantics, Not Historians</h2>
+          <p className="text-white/80 text-base font-medium leading-relaxed">
+            You don’t need a PhD to wear history — just a crush on timeless things.
+          </p>
+        </div>
+      </button>
+    </motion.div>
+
+  </div>
+</section>
+
+
 
       {/* Products Collection Section */}
       <section id="collection" className="max-w-7xl mx-auto px-6 py-20 scroll-mt-20">

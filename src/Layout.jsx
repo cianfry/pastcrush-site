@@ -41,7 +41,7 @@ export default function Layout({ children, currentPageName }) {
         <div className="max-w-6xl mx-auto px-6 py-5">
           <div className="flex items-center justify-between">
             <Link to={createPageUrl("Home")} className="text-2xl font-black text-[#1A1A2E] tracking-tight hover:text-[#E07856] transition-colors">
-              Past Crush
+              PastCrush
             </Link>
             
             <div className="flex items-center gap-10">

@@ -6,7 +6,7 @@ import About from "./Pages/About";
 import ScrollToTop from "./components/ScrollToTop";
 
 export default function App() {
-  return (
+  return ( 
      <>
       <ScrollToTop />
       <Routes>

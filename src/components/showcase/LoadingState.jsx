@@ -1,21 +1,22 @@
 import React from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Amphora } from 'lucide-react';
+import { Gem } from 'lucide-react';
 
 export default function LoadingState() {
   return (
-    <div className="min-h-screen bg-white" role="status" aria-live="polite" aria-busy="true">
+    <div className="min-h-screen bg-white">
+      {/* Hero Skeleton */}
       <section className="bg-white py-32 md:py-40">
         <div className="max-w-6xl mx-auto px-6 text-center">
-          <Amphora className="w-12 h-12 text-[#C9A959] fill-[#C9A959]/20 mx-auto mb-8 animate-pulse" aria-hidden="true" />
+          <Gem className="w-12 h-12 text-[#C9A959] fill-[#C9A959]/20 mx-auto mb-8 animate-pulse" />
           <Skeleton className="h-16 w-3/4 mx-auto mb-6 bg-gray-100" />
           <Skeleton className="h-8 w-full max-w-3xl mx-auto mb-4 bg-gray-100" />
           <Skeleton className="h-8 w-5/6 max-w-3xl mx-auto mb-12 bg-gray-100" />
           <Skeleton className="h-14 w-64 mx-auto rounded-full bg-gray-100" />
-          <p className="sr-only">Loading collection…</p>
         </div>
       </section>
 
+      {/* Products Grid Skeleton */}
       <section className="max-w-7xl mx-auto px-6 py-24">
         <div className="mb-16 text-center">
           <Skeleton className="h-12 w-64 mx-auto mb-3 bg-gray-100" />

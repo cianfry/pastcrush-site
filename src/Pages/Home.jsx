@@ -1,204 +1,282 @@
 import React from "react";
-import { Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
+//import { Switch } from "@/components/ui/switch";
+//import { Input } from "@/components/ui/input";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { createPageUrl } from "@/utils";
+//import { base44 } from "@/api/base44Client";
+//import { useQuery } from "@tanstack/react-query";
 import ProductCard from "../components/showcase/ProductCard";
-import HeroSection from "../components/showcase/HeroSection";
-import WhySection from "../components/showcase/WhySection";
-import LoadingState from "../components/showcase/LoadingState";
 import CategoryFilter from "../components/showcase/CategoryFilter";
-import { Alert, AlertDescription } from "../components/ui/alert";
-
-const FEED_URL =
-  window.__PASTCRUSH_API__ ||
-  "https://raw.githubusercontent.com/cianfry/timeless-scraper/refs/heads/main/catawiki_auctions_ai.json";
-
-const LS_KEY_ITEMS = "pastcrush_products";
-const LS_KEY_LAST_FETCH = "pastcrush_last_fetch";
-const SIX_HOURS = 6 * 60 * 60 * 1000;
-
-const norm = (s) => (s || "").trim();
-const toTitle = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
-const normCategory = (raw) => {
-  const c = norm(raw).toLowerCase();
-  if (!c) return "Other";
-  const map = {
-    ring: "Rings",
-    rings: "Rings",
-    bracelet: "Bracelets",
-    bracelets: "Bracelets",
-    necklace: "Necklaces",
-    necklaces: "Necklaces",
-    amulet: "Amulets",
-    amulets: "Amulets",
-    pendant: "Necklaces",
-    coin: "Coins",
-    coins: "Coins",
-    artifact: "Other",
-    statue: "Other",
-    other: "Other",
-  };
-  return map[c] || toTitle(c);
-};
-
-function shapeItem(item) {
-  const id = item.item_url || item.url || `${item.title}-${item.image}-${Math.random()}`;
-  return {
-    id,
-    title: norm(item.title_en || item.title),
-    image_url: norm(item.image),
-    price: norm(item.price),
-    link: norm(item.item_url || item.url),
-    ai_description: norm(item.description),
-    category: normCategory(item.category),
-    fetched_at: new Date().toISOString(),
-  };
-}
-
-function dedupeById(items) {
-  const seen = new Set();
-  return items.filter((it) => (seen.has(it.id) ? false : (seen.add(it.id), true)));
-}
-
-async function fetchFeed(signal) {
-  const res = await fetch(FEED_URL, { signal, mode: "cors", cache: "no-store" });
-  if (!res.ok) throw new Error(`Feed HTTP ${res.status}`);
-  const data = await res.json();
-  if (!Array.isArray(data)) return [];
-  return dedupeById(data.map(shapeItem));
-}
+import WhySection from "../components/showcase/WhySection";
 
 export default function Home() {
-  const [isRefreshing, setIsRefreshing] = React.useState(false);
-  const [products, setProducts] = React.useState([]);
-  const [isInitialLoad, setIsInitialLoad] = React.useState(true);
-  const [statusMessage, setStatusMessage] = React.useState(null);
+  const [emailEnabled, setEmailEnabled] = React.useState(false);
+  const [email, setEmail] = React.useState("");
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [selectedCategory, setSelectedCategory] = React.useState("All");
-  const collectionRef = React.useRef(null);
+  const products = []
+  const isLoading = false
 
-  React.useEffect(() => {
-    try {
-      const cached = localStorage.getItem(LS_KEY_ITEMS);
-      if (cached) {
-        const parsed = JSON.parse(cached);
-        if (Array.isArray(parsed) && parsed.length) {
-          setProducts(parsed);
-          setIsInitialLoad(false);
-        }
-      }
-    } catch (e) {
-      console.warn("Cache parse failed", e);
-    }
-  }, []);
+  // const { data: products = [], isLoading } = useQuery({
+  //    queryKey: ['products'],
+  //    queryFn: () => base44.entities.Product.list('-created_date', 100),
+  //  });
 
-  const updateProducts = React.useCallback(async () => {
-    setIsRefreshing(true);
-   // setStatusMessage("✨ Searching through centuries...");
+  const handleEmailSubmit = async (e) => {
+    // e.preventDefault();
+    // if (email && !isSubmitting) {
+    //   setIsSubmitting(true);
+    //   try {
+    //     await base44.integrations.Core.SendEmail({
+    //       to: "hello@pastcrush.com",
+    //       subject: "New Newsletter Signup! 💍",
+    //       body: `Someone wants to hear from you: ${email}\n\nThey're clearly someone with excellent taste in ancient jewelry.`
+    //     });
+    //     alert("🎉 Welcome to the Past Crush family! We'll keep you updated on treasures that survived empires.");
+    //     setEmail("");
+    //     setEmailEnabled(false);
+    //   } catch (error) {
+    //     alert("✨ Your taste is impeccable! We've noted your interest.");
+    //     setEmail("");
+    //     setEmailEnabled(false);
+    //   }
+    //   setIsSubmitting(false);
+    // }
+  };
 
-    const ctrl = new AbortController();
-    const t = setTimeout(() => ctrl.abort("timeout"), 60000);
+  const scrollToCollection = () => {
+    document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
-    try {
-      const fresh = await fetchFeed(ctrl.signal);
-      setProducts(fresh);
-      localStorage.setItem(LS_KEY_ITEMS, JSON.stringify(fresh));
-      localStorage.setItem(LS_KEY_LAST_FETCH, Date.now().toString());
-      setStatusMessage(null);
-    } catch (err) {
-      console.error("Feed fetch failed:", err);
-    //  setStatusMessage("💔 Something went wrong. We'll try again soon.");
-      setTimeout(() => setStatusMessage(null), 5000);
-      try {
-        const cached = JSON.parse(localStorage.getItem(LS_KEY_ITEMS) || "[]");
-        setProducts(Array.isArray(cached) ? cached : []);
-      } catch {
-        setProducts([]);
-      }
-    } finally {
-      clearTimeout(t);
-      setIsRefreshing(false);
-      setIsInitialLoad(false);
-    }
-  }, []);
+  // Extract categories from products
+  const categories = React.useMemo(() => {
+    const cats = new Set(products.map(p => p.title.split(' ')[0]).filter(Boolean));
+    return ['All', ...Array.from(cats)];
+  }, [products]);
 
-  React.useEffect(() => {
-    const last = parseInt(localStorage.getItem(LS_KEY_LAST_FETCH) || "0", 10);
-    const now = Date.now();
-    if (!last || now - last > SIX_HOURS) {
-      updateProducts();
-    } else {
-      const remain = SIX_HOURS - (now - last);
-      const first = setTimeout(updateProducts, remain);
-      const interval = setInterval(updateProducts, SIX_HOURS);
-      return () => { clearTimeout(first); clearInterval(interval); };
-    }
-  }, [updateProducts]);
-
-  const { categories, filtered } = React.useMemo(() => {
-    const counts = products.reduce((acc, p) => {
-      const c = p.category || "Other";
-      acc[c] = (acc[c] || 0) + 1;
-      return acc;
-    }, {});
-    const cats = ["All", ...Object.keys(counts).sort()];
-    const filtered = selectedCategory === "All" ? products : products.filter((p) => (p.category || "Other") === selectedCategory);
-    return { categories: cats, filtered };
+  const filteredProducts = React.useMemo(() => {
+    if (selectedCategory === 'All') return products;
+    return products.filter(p => p.title.toLowerCase().includes(selectedCategory.toLowerCase()));
   }, [products, selectedCategory]);
 
-  const scrollToCollection = () => collectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-
-  if (isInitialLoad && products.length === 0) return <LoadingState />;
-
   return (
-    <div className="min-h-screen bg-white">
-      <HeroSection onScrollToCollection={scrollToCollection} />
-      <WhySection />
-
-      {statusMessage && (
-        <div className="max-w-7xl mx-auto px-6 mb-8">
-          <Alert className="border-[#C9A959] bg-[#C9A959]/5 rounded-2xl">
-            <Sparkles className="w-4 h-4 text-[#C9A959]" />
-            <AlertDescription className="text-gray-700">
-              {statusMessage}
-            </AlertDescription>
-          </Alert>
+    <div className="min-h-screen bg-[#F5F5F5]">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-white to-[#F5F5F5] py-24 md:py-32 px-6">
+        <div className="max-w-5xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h1 className="text-5xl md:text-7xl font-black text-[#1A1A2E] mb-6 leading-[1.1] tracking-tight">
+              Archaeology, but<br />make it fashion.
+            </h1>
+            <p className="text-lg md:text-xl text-gray-500 mb-10 max-w-2xl mx-auto font-medium">
+              Discover ancient jewelry that found its way to you.<br/>
+              <span className="text-base text-gray-400 italic mt-2 inline-block">
+                (Probably older than your last relationship)
+              </span>
+            </p>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <Button 
+              onClick={scrollToCollection}
+              className="bg-[#E07856] hover:bg-[#d06846] text-white px-12 py-7 text-lg rounded-full font-bold shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300"
+            >
+              Shop Now
+            </Button>
+          </motion.div>
         </div>
-      )}
+      </section>
 
-      <section ref={collectionRef} className="max-w-7xl mx-auto px-6 py-24 scroll-mt-24">
-        <div className="mb-16 text-center">
-          <h2 className="text-4xl md:text-5xl font-serif text-[#111] mb-4">The Collection</h2>
-          <p className="text-gray-500 mb-12 text-lg">
-            {filtered.length} {filtered.length === 1 ? "piece" : "pieces"} waiting for a second chance at love
-            {selectedCategory !== "All" && ` · ${selectedCategory}`}
-            {isRefreshing ? " · refreshing…" : ""}
-          </p>
+      {/* Grid Section */}
+      <section className="max-w-6xl mx-auto px-6 py-16">
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Our Jewelry */}
+          <motion.div 
+            className="space-y-5"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <button 
+              onClick={scrollToCollection}
+              className="w-full bg-gradient-to-br from-[#E07856] to-[#d06846] rounded-[32px] p-12 flex items-center justify-center min-h-[320px] shadow-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 cursor-pointer group"
+            >
+              <div className="text-9xl group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
+                {/*IMAGE HERE */}
+              </div>
+            </button>
+            <div className="px-2">
+              <h2 className="text-3xl font-black text-[#1A1A2E] mb-3 tracking-tight">More Than Metal</h2>
+              <p className="text-[#1A1A2E]/70 text-lg font-medium leading-relaxed">
+                Each piece carries stories<br />that modern jewelry can only<br />dream of.
+              </p>
+            </div>
+          </motion.div>
 
-          <CategoryFilter
-            categories={categories}
-            selectedCategory={selectedCategory}
-            onSelectCategory={setSelectedCategory}
-          />
+          {/* What's Old is New */}
+          <motion.div 
+            className="space-y-5"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <button 
+              onClick={scrollToCollection}
+              className="w-full bg-gradient-to-br from-[#4FC3B5] to-[#3ba89c] rounded-[32px] p-12 flex items-center justify-center min-h-[320px] shadow-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 cursor-pointer group"
+            >
+              <div className="flex gap-6 items-center">
+                <div className="text-8xl group-hover:rotate-12 transition-transform duration-300">   {/*IMAGE HERE */}</div>
+                <div className="text-8xl group-hover:-rotate-12 transition-transform duration-300">   {/*IMAGE HERE */}</div>
+              </div>
+            </button>
+            <div className="px-2">
+              <h2 className="text-3xl font-black text-[#1A1A2E] mb-3 tracking-tight">Time-Tested Style</h2>
+              <p className="text-[#1A1A2E]/70 text-lg font-medium leading-relaxed">
+                If it survived 2000 years, it's<br />probably going to outlast fast<br />fashion.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* About Us */}
+          <motion.div 
+            className="space-y-5"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <Link 
+              to={createPageUrl("About")}
+              className="block w-full bg-gradient-to-br from-[#4FC3B5] to-[#3ba89c] rounded-[32px] p-12 flex items-center justify-center min-h-[320px] shadow-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 cursor-pointer group"
+            >
+              <div className="text-9xl group-hover:scale-110 group-hover:rotate-[-6deg] transition-transform duration-300">   {/*IMAGE HERE */}</div>
+            </Link>
+            <div className="px-2">
+              <h2 className="text-3xl font-black text-[#1A1A2E] mb-3 tracking-tight">Romantic Reuse</h2>
+              <p className="text-[#1A1A2E]/70 text-lg font-medium leading-relaxed">
+                Give ancient treasures<br />another love story.<br />Sustainability meets sentimentality.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Email Signup */}
+          <motion.div 
+            className="space-y-5"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <div className="bg-gradient-to-br from-[#E07856] to-[#d06846] rounded-[32px] p-10 flex flex-col justify-between min-h-[320px] shadow-lg hover:shadow-2xl transition-all duration-300">
+              <div>  
+               {/* <h2 className="text-3xl font-black text-white mb-2 tracking-tight">Be the First to Know</h2>
+                <p className="text-white/80 text-sm mb-6 italic">When treasures arrive (they take their time)</p>
+                <div className="flex items-center justify-between p-4 bg-white/10 backdrop-blur-sm rounded-2xl mb-6">
+                  <span className="text-white text-lg font-semibold">Email me</span>
+                 <Switch 
+                    checked={emailEnabled}
+                    onCheckedChange={setEmailEnabled}
+                    className="data-[state=checked]:bg-[#4FC3B5] scale-125"
+                  /> 
+                </div>*/}
+              </div>
+              
+              {emailEnabled && (
+                <motion.form 
+                  onSubmit={handleEmailSubmit} 
+                  className="mt-auto"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* <Input
+                    type="email"
+                    placeholder="your@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full bg-[#4FC3B5] border-none text-white placeholder:text-white/60 rounded-2xl h-16 px-6 text-lg font-medium focus:ring-2 focus:ring-white/30"
+                    required
+                    disabled={isSubmitting}
+                  /> */}
+                  {isSubmitting && (
+                    <p className="text-white/70 text-xs mt-2 text-center italic">Sending carrier pigeon...</p>
+                  )}
+                </motion.form>
+              )}
+            </div>
+           <div className="px-2">
+              <h2 className="text-3xl font-black text-[#1A1A2E] mb-3 tracking-tight">About Us</h2>
+              <p className="text-[#1A1A2E]/70 text-lg font-medium leading-relaxed">
+                Give ancient treasures<br />another love story.<br />Sustainability meets sentimentality.
+              </p>
+            </div>
+          </motion.div>
         </div>
+      </section>
 
-        {filtered.length === 0 ? (
-          <div className="text-center py-32">
-            <Sparkles className="w-16 h-16 text-gray-200 mx-auto mb-6" />
-            <h3 className="text-2xl font-serif text-gray-400 mb-3">
-              {selectedCategory === "All"
-                ? "The vault is being restocked..."
-                : `No ${selectedCategory.toLowerCase()} right now`}
-            </h3>
-            <p className="text-gray-400 italic">
-              {selectedCategory === "All" ? "Ancient treasures take their time." : "Maybe they're off fighting curses."}
+      {/* Products Collection Section */}
+      <section id="collection" className="max-w-7xl mx-auto px-6 py-20 scroll-mt-20">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-black text-[#1A1A2E] mb-4 tracking-tight">The Collection</h2>
+          <p className="text-gray-500 text-lg font-medium mb-8">Curated pieces with centuries of stories</p>
+          
+          {products.length > 0 && (
+            <CategoryFilter 
+              categories={categories}
+              selectedCategory={selectedCategory}
+              onSelectCategory={setSelectedCategory}
+            />
+          )}
+        </motion.div>
+
+        {isLoading ? (
+          <div className="text-center py-20">
+            <div className="inline-block w-12 h-12 border-4 border-gray-200 border-t-[#E07856] rounded-full animate-spin mb-4" />
+            <p className="text-gray-500 italic">Excavating treasures...</p>
+          </div>
+        ) : products.length === 0 ? (
+          <div className="bg-white rounded-[32px] p-16 text-center shadow-lg max-w-3xl mx-auto">
+            <div className="text-6xl mb-6 animate-bounce">⏳</div>
+            <p className="text-gray-600 mb-3 text-xl font-semibold">Our treasures are being excavated...</p>
+            <p className="text-base text-gray-500 font-medium mb-6">
+              We're currently curating authentic ancient jewelry for modern romantics.
+            </p>
+            <p className="text-sm text-gray-400 italic">
+              (They've waited centuries. A few more days won't hurt.)
             </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filtered.map((product, index) => (
-              <ProductCard key={product.id || product.link || index} product={product} index={index} />
+            {filteredProducts.map((product, index) => (
+              <ProductCard key={product.id} product={product} index={index} />
             ))}
           </div>
         )}
+
+        {filteredProducts.length === 0 && products.length > 0 && (
+          <div className="text-center py-16">
+            <p className="text-gray-500 text-lg italic">
+              No treasures in this category yet.<br />
+              <span className="text-sm">Try exploring "All" to see our full collection.</span>
+            </p>
+          </div>
+        )}
       </section>
+
+      {/* Why Section */}
+      {products.length > 0 && <WhySection />}
     </div>
   );
 }

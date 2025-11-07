@@ -60,15 +60,18 @@
 }
 </script>
 <script>
-  // GitHub Pages redirect fix for React Router (Vite)
+  // GitHub Pages redirect handler for React Router
   (function() {
-    var redirect = sessionStorage.redirect;
+    const redirect = sessionStorage.redirect;
     delete sessionStorage.redirect;
-    if (redirect && redirect != location.pathname) {
+
+    // Restore previous path after React loads
+    if (redirect && redirect !== location.pathname) {
       window.history.replaceState(null, null, redirect);
     } else if (location.pathname !== "/") {
+      // Save the current path before redirecting to root
       sessionStorage.redirect = location.pathname;
-      window.location.href = "/";
+      window.location.replace("/");
     }
   })();
 </script>

@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./Layout";
 import Home from "./Pages/Home";
 import About from "./Pages/About";
+import FAQ from "./Pages/FAQ";
 import ScrollToTop from "./components/ScrollToTop";
 
 export default function App() {
@@ -23,6 +24,14 @@ export default function App() {
           element={
             <Layout currentPageName="About">
               <About />
+            </Layout>
+          }
+        />
+        <Route
+          path="/faq"
+          element={
+            <Layout currentPageName="FAQ">
+              <FAQ />
             </Layout>
           }
         />

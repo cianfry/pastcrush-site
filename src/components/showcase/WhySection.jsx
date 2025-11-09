@@ -4,71 +4,34 @@ import { Gem, Clock, Sparkles } from 'lucide-react';
 
 export default function WhySection() {
   return (
-    <section className="py-24 bg-gradient-to-b from-white to-gray-50">
-      <div className="max-w-4xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center"
-        >
-          <h2 className="text-4xl md:text-5xl font-serif text-[#111] mb-6">
-            Why Past Crush Exists
-          </h2>
-          
-          <div className="w-16 h-1 bg-[#C9A959] mx-auto mb-12 rounded-full" />
+    <section >
+    <h2 className="text-4xl md:text-5xl font-black text-[#1A1A2E] mb-8 tracking-tight text-center">
+        Why Past Crush Exists
+      </h2>
 
-          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-16 font-light">
-            We love jewelry with baggage. The kind that's seen empires rise and fall, yet still looks great on a night out. 
-            Every piece you'll find here once belonged to someone's past — and it's ready for a second crush.
-          </p>
+      <div className="space-y-6 text-lg text-gray-600 leading-relaxed font-medium max-w-3xl mx-auto text-center">
+        <p>
+          We love jewelry with <span className="text-[#E07856] font-bold">baggage</span> — the kind that’s
+          survived centuries of empires, banquets, heartbreaks, and still looks incredible on a Friday night.
+        </p>
 
-          {/* Value Props */}
-          <div className="grid md:grid-cols-3 gap-8 mt-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="text-center p-8 rounded-3xl bg-white border border-gray-100 hover:shadow-lg transition-shadow duration-300"
-            >
-              <Gem className="w-10 h-10 text-[#C9A959] mx-auto mb-4 fill-[#C9A959]/20" />
-              <h3 className="text-lg font-serif text-[#111] mb-2">More Than Metal</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                Each piece carries stories that modern jewelry can only dream of.
-              </p>
-            </motion.div>
+        <p>
+          Every artifact we find once belonged to someone’s past. Maybe it sealed a love letter. Maybe it
+          crossed an empire. Now it’s ready for its next chapter — <em>with you.</em>
+        </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className="text-center p-8 rounded-3xl bg-white border border-gray-100 hover:shadow-lg transition-shadow duration-300"
-            >
-              <Clock className="w-10 h-10 text-[#C9A959] mx-auto mb-4" />
-              <h3 className="text-lg font-serif text-[#111] mb-2">Time-Tested Style</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                If it survived 2000 years, it's probably going to outlast fast fashion.
-              </p>
-            </motion.div>
+        <p>
+          Past Crush exists to give ancient treasures a second crush: connecting history’s craftsmanship
+          with today’s hearts and wardrobes.
+        </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-              className="text-center p-8 rounded-3xl bg-white border border-gray-100 hover:shadow-lg transition-shadow duration-300"
-            >
-              <Sparkles className="w-10 h-10 text-[#C9A959] mx-auto mb-4" />
-              <h3 className="text-lg font-serif text-[#111] mb-2">Romantic Reuse</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                Give ancient treasures another love story. Sustainability meets sentimentality.
-              </p>
-            </motion.div>
-          </div>
-        </motion.div>
+        <p className="text-[#E07856] font-black text-2xl pt-4">
+          Archaeology, but make it fashion.
+        </p>
+
+        <p className="text-sm text-gray-500 italic pt-2">
+          Because vintage is cute, but ancient? That’s iconic.
+        </p>
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 //import { Switch } from "@/components/ui/switch";
 //import { Input } from "@/components/ui/input";
@@ -10,52 +10,59 @@ import { createPageUrl } from "@/utils";
 import ProductCard from "../components/showcase/ProductCard";
 import CategoryFilter from "../components/showcase/CategoryFilter";
 import WhySection from "../components/showcase/WhySection";
+import Papa from "papaparse"; // lightweight CSV parser
 
 export default function Home() {
   const [emailEnabled, setEmailEnabled] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [selectedCategory, setSelectedCategory] = React.useState("All");
-  const products = []
-  const isLoading = false
-
-  // const { data: products = [], isLoading } = useQuery({
-  //    queryKey: ['products'],
-  //    queryFn: () => base44.entities.Product.list('-created_date', 100),
-  //  });
-
-  const handleEmailSubmit = async (e) => {
-    // e.preventDefault();
-    // if (email && !isSubmitting) {
-    //   setIsSubmitting(true);
-    //   try {
-    //     await base44.integrations.Core.SendEmail({
-    //       to: "hello@pastcrush.com",
-    //       subject: "New Newsletter Signup! 💍",
-    //       body: `Someone wants to hear from you: ${email}\n\nThey're clearly someone with excellent taste in ancient jewelry.`
-    //     });
-    //     alert("🎉 Welcome to the Past Crush family! We'll keep you updated on treasures that survived empires.");
-    //     setEmail("");
-    //     setEmailEnabled(false);
-    //   } catch (error) {
-    //     alert("✨ Your taste is impeccable! We've noted your interest.");
-    //     setEmail("");
-    //     setEmailEnabled(false);
-    //   }
-    //   setIsSubmitting(false);
-    // }
-  };
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const scrollToCollection = () => {
     document.getElementById('collection')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  // Extract categories from products
-  const categories = React.useMemo(() => {
-    const cats = new Set(products.map(p => p.title.split(' ')[0]).filter(Boolean));
-    return ['All', ...Array.from(cats)];
-  }, [products]);
+   useEffect(() => {
+    async function loadProducts() {
+      try {
+        // Fetch the CSV file from /public
+        const response = await fetch("/products.csv");
+        const csvText = await response.text();
 
+        // Parse CSV into JSON
+        const parsed = Papa.parse(csvText, { header: true, skipEmptyLines: true });
+        const data = parsed.data.map((p, i) => ({
+          id: p.lot_id,
+          title: p.lot_title_en,
+          image_url: p.lot_images_image_1,
+          price: p.lot_last_bid_euro,
+          link: p.lot_url_en,
+          ai_description: p.ai_description,
+          source: p.source || "manual",
+        })).filter((p) => p.price && p.price > 4 &&
+            // exclude coral/corallo/amber titles
+             !/coral|corallo|amber/i.test(p.title || ""));
+
+        setProducts(data);
+      } catch (err) {
+        console.error("Failed to load products:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    loadProducts();
+  }, []);
+
+
+  // Extract categories from products
+  // const categories = React.useMemo(() => {
+  //   const cats = new Set(products.map(p => p.title.split(' ')[0]).filter(Boolean));
+  //   return ['All', ...Array.from(cats)];
+  // }, [products]);
+const categories = [];
   const filteredProducts = React.useMemo(() => {
     if (selectedCategory === 'All') return products;
     return products.filter(p => p.title.toLowerCase().includes(selectedCategory.toLowerCase()));
@@ -124,36 +131,8 @@ export default function Home() {
     </svg>
   </motion.div>
 
-  <h2 className="text-4xl md:text-5xl font-black text-[#1A1A2E] mb-8 tracking-tight text-center">
-    Why Past Crush Exists
-  </h2>
-
-  <div className="space-y-6 text-lg text-gray-600 leading-relaxed font-medium max-w-3xl mx-auto text-center">
-    <p>
-      We love jewelry with <span className="text-[#E07856] font-bold">baggage</span> — the kind that’s
-      survived centuries of empires, banquets, heartbreaks, and still looks incredible on a Friday night.
-    </p>
-
-    <p>
-      Every artifact we find once belonged to someone’s past. Maybe it sealed a love letter. Maybe it
-      crossed an empire. Now it’s ready for its next chapter — <em>with you.</em>
-    </p>
-
-    <p>
-      Past Crush exists to give ancient treasures a second crush: connecting history’s craftsmanship
-      with today’s hearts and wardrobes.
-    </p>
-
-    <p className="text-[#E07856] font-black text-2xl pt-4">
-      Archaeology, but make it fashion.
-    </p>
-
-    <p className="text-sm text-gray-500 italic pt-2">
-      Because vintage is cute, but ancient? That’s iconic.
-    </p>
-  </div>
+   <WhySection/>
 </motion.div>
-
 
 
 {/* Grid Section */}
@@ -224,24 +203,24 @@ export default function Home() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
     >
-      <Link
-        to={createPageUrl("About")}
-        className="relative group block w-full rounded-[32px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.03]"
+    <button
+        onClick={scrollToCollection}
+        className="relative group w-full rounded-[32px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.03]"
       >
-        <div
-          className="h-[340px] bg-cover bg-center transition-all duration-700 group-hover:scale-110"
-          style={{ backgroundImage: "url('/bracelet3.PNG')" }}
-        ></div>
+      <div
+        className="h-[340px] bg-cover bg-center transition-all duration-700 group-hover:scale-110"
+        style={{ backgroundImage: "url('/bracelet3.PNG')" }}
+      ></div>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A2E]/70 via-[#1A1A2E]/20 to-transparent transition-opacity duration-500 rounded-[32px]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A2E]/70 via-[#1A1A2E]/20 to-transparent transition-opacity duration-500 rounded-[32px]" />
 
-        <div className="absolute bottom-6 left-6 text-left text-white transition-all duration-500">
-          <h2 className="text-3xl font-black mb-2">Romantic Reuse</h2>
-          <p className="text-white/80 text-base font-medium leading-relaxed">
-            Give ancient treasures another love story.<br />Sustainability meets sentimentality.
-          </p>
-        </div>
-      </Link>
+      <div className="absolute bottom-6 left-6 text-left text-white transition-all duration-500">
+        <h2 className="text-3xl font-black mb-2">Romantic Reuse</h2>
+        <p className="text-white/80 text-base font-medium leading-relaxed">
+          Give ancient treasures another love story.<br />Sustainability meets sentimentality.
+        </p>
+      </div>
+      </button>
     </motion.div>
 
     {/* 4. For Romantics, Not Historians */}
@@ -330,9 +309,6 @@ export default function Home() {
           </div>
         )}
       </section>
-
-      {/* Why Section */}
-      {products.length > 0 && <WhySection />}
     </div>
   );
 }

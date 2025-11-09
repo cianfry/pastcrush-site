@@ -43,7 +43,7 @@ export default function Home() {
           source: p.source || "manual",
         })).filter((p) => p.price && p.price > 4 &&
             // exclude coral/corallo/amber titles
-             !/coral|corallo|amber/i.test(p.title || ""));
+             !/coral|corallo|amber|american turquoise/i.test(p.title || ""));
 
         setProducts(data);
       } catch (err) {

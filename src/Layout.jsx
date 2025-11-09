@@ -38,10 +38,19 @@ export default function Layout({ children, currentPageName }) {
 
       {/* Navigation */}
       <nav className="bg-white/80 backdrop-blur-lg border-b border-gray-200/50 sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 py-5">
+        <div className="max-w-6xl mx-auto px-6 py-2">
           <div className="flex items-center justify-between">
-            <Link to={createPageUrl("Home")} className="text-2xl font-black text-[#1A1A2E] tracking-tight hover:text-[#E07856] transition-colors">
-              PastCrush
+           {/* Logo + Brand */}
+            <Link 
+              to={createPageUrl("Home")} 
+              className="flex items-center gap-3 text-2xl font-black text-[#1A1A2E] tracking-tight hover:text-[#E07856] transition-colors"
+            >
+              <img 
+                src="/logo_nav.png" 
+                alt="PastCrush logo" 
+                className="w-[60px] h-[60px] object-contain"
+              />
+              <span>PastCrush</span>
             </Link>
             
             <div className="flex items-center gap-10">
@@ -75,31 +84,58 @@ export default function Layout({ children, currentPageName }) {
         {children}
       </main>
 
-      {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 py-12 mt-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-8">
-            {hoveredIcon && (
-              <p className="text-sm text-gray-500 italic min-h-[20px] transition-all duration-300">
-                {iconMessages[hoveredIcon]}
-              </p>
-            )}
-            {!hoveredIcon && (
-              <p className="text-sm text-gray-400 min-h-[20px]">
-                We display publicly available listings from Catawiki auctions. <br />All images and data © Catawiki. Updated responsibly for your browsing pleasure.
-              </p>
-            )}
-          </div>
-          <div className="text-center space-y-2">
-            <p className="text-xs text-gray-400 tracking-wide">
-              © 2025 Past Crush · Making archaeology fashionable
-            </p>
-            <p className="text-[10px] text-gray-400 italic">
-              Bringing together old souls and ancient gold since 2025
-            </p>
-          </div>
-        </div>
-      </footer>
+{/* Footer */}
+<footer className="bg-white border-t border-gray-200 py-12 mt-20">
+  <div className="max-w-6xl mx-auto px-6">
+    <div className="text-center mb-8">
+      {hoveredIcon ? (
+        <p className="text-sm text-gray-500 italic min-h-[20px] transition-all duration-300">
+          {iconMessages[hoveredIcon]}
+        </p>
+      ) : (
+        <p className="text-sm text-gray-400 min-h-[20px]">
+          We display publicly available listings from Catawiki auctions. <br />
+          All images and data © Catawiki. Updated responsibly for your browsing pleasure.
+        </p>
+      )}
+    </div>
+
+    {/* Instagram CTA */}
+    <div className="flex justify-center mb-6">
+      <a
+        href="https://www.instagram.com/pastcrush"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group inline-flex items-center gap-3 bg-gradient-to-r from-[#E07856] to-[#4FC3B5] text-white px-5 py-3 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300"
+      >
+        {/* Instagram gradient icon */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          className="w-5 h-5"
+        >
+          <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm8.5 1.5h-8.5A4.25 4.25 0 0 0 3 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5zM12 8.25a3.75 3.75 0 1 1 0 7.5 3.75 3.75 0 0 1 0-7.5zm4.75-.75a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5z" />
+        </svg>
+
+        <span className="font-semibold tracking-wide text-sm">
+          Follow us on Instagram
+        </span>
+      </a>
+    </div>
+
+    <div className="text-center space-y-2">
+      <p className="text-xs text-gray-400 tracking-wide">
+        © 2025 Past Crush · Making archaeology fashionable
+      </p>
+      <p className="text-[10px] text-gray-400 italic">
+        Bringing together old souls and ancient gold since 2025
+      </p>
+    </div>
+  </div>
+</footer>
+
+
     </div>
   );
 }

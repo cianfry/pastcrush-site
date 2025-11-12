@@ -32,7 +32,7 @@ export default function Layout({ children, currentPageName }) {
               onClick={() => setMobileOpen(false)}
             >
               <img
-                src="/logo_nav.png"
+                src="/logo_nav.webp"
                 alt="PastCrush logo"
                 className="w-[52px] h-[52px] object-contain"
               />

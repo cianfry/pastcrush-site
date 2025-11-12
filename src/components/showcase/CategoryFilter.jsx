@@ -1,28 +1,25 @@
-import React from 'react';
+import React from "react";
 
 export default function CategoryFilter({ categories, selectedCategory, onSelectCategory }) {
-  const capitalizeCategory = (category) => {
-    return category
-      .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(' ');
-  };
-
   return (
-    <div className="flex flex-wrap gap-3 justify-center">
-      {categories.map(category => (
-        <button
-          key={category}
-          onClick={() => onSelectCategory(category)}
-          className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 ${
-            selectedCategory === category
-              ? 'bg-[#C9A959] text-white shadow-lg scale-105'
-              : 'bg-white text-gray-600 border border-gray-200 hover:border-[#C9A959] hover:text-[#C9A959] hover:scale-105'
-          }`}
-        >
-          {capitalizeCategory(category)}
-        </button>
-      ))}
+    <div className="flex flex-wrap justify-center gap-3 md:gap-4">
+      {categories.map((cat) => {
+        const isSelected = cat === selectedCategory;
+        return (
+          <button
+            key={cat}
+            onClick={() => onSelectCategory(cat)}
+            className={`px-5 py-2.5 rounded-full font-semibold text-sm md:text-base transition-all duration-200 shadow-sm
+              ${
+                isSelected
+                  ? "bg-[#E07856] text-white shadow-md scale-105"
+                  : "bg-white text-[#1A1A2E] border border-gray-200 hover:bg-[#F5F5F5] hover:shadow-md"
+              }`}
+          >
+            {cat}
+          </button>
+        );
+      })}
     </div>
   );
 }

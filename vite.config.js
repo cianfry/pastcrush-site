@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import ssr from 'vite-plugin-ssr/plugin'
 import path from "path";
 
 
@@ -7,9 +8,8 @@ import path from "path";
 // For example, if your repo is github.com/cianfry/pastcrush
 // then `base: "/pastcrush/"` ensures correct asset paths on GitHub Pages.
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), ssr()],
   base: '/', // ✅ important for custom domains like pastcrush.shop
-    build: { outDir: 'dist' },
     server: {
     historyApiFallback: true, // 👈 handles routing correctly
    },
